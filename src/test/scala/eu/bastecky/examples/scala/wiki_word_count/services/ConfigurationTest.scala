@@ -12,7 +12,7 @@ class ConfigurationTest extends FlatSpec {
     it should "get value from configuration file" in {
         val config = new Configuration
 
-        val value = config.getValue(config.WikiUriProperty)
+        val value = config.getValue(config.WikiEndpointProperty)
         assert(value != null)
 
         System.setProperty("test.property", "test-value")

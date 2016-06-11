@@ -18,8 +18,9 @@ import java.io.InputStream
   */
 class Configuration {
 
-    /** URI of wikipedia api for loading texts */
-    val WikiUriProperty = "wiki.uri"
+    /** URI of wikipedia api endpoint for loading texts */
+    val WikiEndpointProperty = "wiki.endpoint"
+    val WikiQueryParamProperty="wiki.query.param"
 
     /** Name of file with default properties */
     val ConfigFileName = "config.properties"

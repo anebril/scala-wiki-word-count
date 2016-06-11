@@ -1,0 +1,88 @@
+{{wiktionary|spark}}
+{{TOC right}}
+
+==Physical sparks==
+* [[Spark (fire)]], a small glowing particle or ember
+* An [[electric spark]], usually with a flash and a sharp noise
+* [[Spark-gap transmitter]], a technology used to generate radio waves
+
+==Computer science==
+* [[Spark (application)]], a mobile email application for iOS devices
+* [[SPARK (programming language)]]
+* [[Spark (software)]]
+* [[Spark (cellular automaton)]], a type of pattern in Conway's Game of Life and related rules
+* [[Apache Spark]], a cluster computing framework
+
+==Entertainment==
+* [[ABC Spark]], a Canadian cable channel which is Canada's sister network to the American ABC Family
+* [[Spark (radio show)|''Spark'' (radio show)]], a culture and technology program hosted by Nora Young for the Canadian Broadcasting Corporation
+* [[Waikato Institute of Technology|Spark Festival]] a NZ Festival of Media, Arts and Design
+* ''The Spark'', an arts and culture radio program produced by [[WMRA]]
+* [[Spark (comics)]] or Ayla Ranzz, a member of the Legion of Super-Heroes
+* [[Spark (Transformers)]], the lifeforce of the Transformers
+** [[Pyro (Transformers)]], also called "Spark", the name of several Transformers
+* [[Spark: A Burning Man Story]], a 2013 documentary film
+* In the comics series ''[[Girl Genius]]'', a "spark" is a mad scientist with supernatural abilities
+* Polly Spark and Professor Spark, characters in the ''[[JumpStart Typing]]'' educational game series
+* [[Spark (1998 film)|''Spark'' (1998 film)]], a film starring Terrence Howard
+* [[Spark (2014 film)|''Spark'' (2014 film)]], a film directed by V. K. Singh
+* [[Spark (2016 film)|''Spark'' (2016 film)]], an upcoming animated film
+* [[Theri (film)]]  (English: Spark), a 2016 Indian Tamil action film
+
+==Publications==
+* ''[[Spark*]]'', the student newspaper of the University of Reading
+* [[Spark (magazine)|''Spark'' (magazine)]], an Australian student publication
+* ''[[Iskra]]'' (''Искра'', Russian for "Spark"), political newspaper of the Russian Social Democratic Labour Party, 1900-1905
+* ''[[Der Funke]]'' (German for "The Spark"), political newspaper of the International Socialist Struggle League, 1932-1933
+* ''[[Gnisten]]'' (Norwegian for "The Spark"), periodical of the Norwegian Communist Party, 1925-1930
+* Spark, an anthology founded by the ''California State Summer School for the Arts''
+
+==Music==
+* [[Spark (Thomas Leeb album)|''Spark'' (Thomas Leeb album)]], 2004
+* [[Spark (Marit Larsen album)|''Spark'' (Marit Larsen album)]], 2011
+* [[Spark (Alain Johannes album)|''Spark'' (Alain Johannes album)]], 2010
+* [[Spark Records]], a record label
+* [[Spark (Tori Amos song)|"Spark" (Tori Amos song)]], 1998
+* [[Spark (Amy Macdonald song)|"Spark" (Amy Macdonald song)]], 2010
+* "Spark", a song by Assemblage 23 from ''[[Compass (Assemblage 23 album)|Compass]]''
+* [[The Spark (song)]], a song by Dutch producer Afrojack
+* [[Spark FM]], a radio station in Sunderland, England
+* [[Jessica Morgan]] (born 1992; formerly known as Spark), female singer-songwriter from East London
+
+==Places==
+* [[Spark Point]], a rocky point in the South Shetland Islands
+
+==Ships and submarines==
+* [[HMS Spark (P236)|HMS ''Spark'' (P236)]], a British Royal Navy submarine
+* [[USS Spark (1813)|USS ''Spark'' (1813)]], a United States Navy brig ship
+* [[USS Spark (1831)|USS ''Spark'' (1831)]], a United States Navy schooner
+* [[USS Spark (IX-196)]], a United States Navy tank-landing ship
+
+==Companies and organisations==
+* [[Spark Unlimited]], a computer game developer
+* [[Spark Infrastructure]], an investor in Australian infrastructure assets
+* In the United States branch of the [[Red Falcons]] socialist youth movement, the "Red Sparks" were the younger age group
+* [[Spark (U.S. organization)]] a US Trotskyist group
+* [[Spark New Zealand]], a telecommunications company
+* [[IF Gnistan]] (Swedish for "The Spark Sports Union"), a Finnish football club from Helsinki
+
+==Other uses==
+* [[Spark (surname)]]
+* [[Spark (mathematics)]], the smallest number of linearly dependent columns in a matrix
+* Spark or ''[[Sinthusa]]'', a genus of butterfly
+* [[Kicksled]] or spark, a small sled
+* [[Spark (horse)]], an American thoroughbred racehorse
+* A British, Australian & Irish slang for [[electrician]]
+* An English synonym for [[telegraphist]] (wireless short wave operator)
+* [[Chevrolet Spark]]
+* [[Project Spark]] by Microsoft, a "game maker" video game for the Xbox One, Xbox 360, and Windows 8.
+
+==See also==
+*[[SPARC (disambiguation)]]
+* [[Sparks (disambiguation)]]
+* [[Sparx (disambiguation)]]
+* [[Sparkle (disambiguation)]]
+* {{lookfrom|Spark}}
+* {{intitle|Spark}}
+
+{{disambiguation}}
