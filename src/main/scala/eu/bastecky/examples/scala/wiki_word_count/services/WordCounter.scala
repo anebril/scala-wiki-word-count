@@ -20,5 +20,17 @@ trait WordCounter {
   * Implementation of word counter for processing texts from wikipedia text source.
   */
 class WikiWordCounter extends WordCounter {
-    override def countWords(text: String): Seq[Word] = ???
+
+    /** Regular expression defining words - non empty sequence of letters in english or other languages */
+    val reg = "([\\u00BF-\\u1FFF\\u2C00-\\uD7FF\\w])+".r
+
+    override def countWords(text: String): Seq[Word] =
+        reg.findAllIn(text)                     // Identify all words in given text and resolves sequence
+          .toSeq
+          .map(_.toLowerCase())                 // Normalizes words - converts them to lowercase
+          .groupBy(w => w)                      // Group words - sequence of (String, Seq[String])
+          .map(w => Word(w._1, w._2.size))      // For each word group creates Word object with word and size of group
+          .toSeq
+          .sortWith(_.count > _.count)          // Sort by number of occurrences (most common words at top)
+
 }

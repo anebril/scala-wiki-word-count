@@ -13,7 +13,7 @@ class WikiTextLoaderTest extends FlatSpec {
     val config = new Configuration
     val loader = new WikiTextLoader()(config)
 
-    val TestQuery = "Scala"
+    val TestQuery = "Scala (programovací jazyk)"
 
     it should "load text from wiki and extract text" in {
         val text = loader.load(TestQuery)

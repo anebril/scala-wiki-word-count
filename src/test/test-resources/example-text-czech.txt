@@ -1,0 +1,138 @@
+{{Infobox - programovací jazyk
+|název =Scala
+|logo =[[File:Scala logotipo.jpg]]
+|paradigma = [[multiparadigmatický programovací jazyk|multiparadigmatický]]
+|vznik = [[2003]]
+|autor = [[Martin Odersky]]
+|vývojář =
+| poslední verze  = 2.11.8
+| datum poslední verze = [[8. březen|8. března]] [[2016]]
+| poslední testovací verze =
+| datum poslední testovací verze=
+|typování =Statické
+|implementace =
+|dialekty =
+|ovlivněno = [[Java (programovací jazyk)|Java]], [[Pizza (programovací jazyk)|Pizza]], [[Haskell (programovací jazyk)|Haskell]], [[Erlang (programovací jazyk)|Erlang]], [[Standard ML]], [[Objective Caml]], [[Smalltalk]], [[Scheme]]
+|ovlivnil =
+| operační systém =
+|licence = [[BSD]]
+|web = [http://www.scala-lang.org/ www.scala-lang.org]
+}}
+'''Scala''' je [[multiparadigmatický programovací jazyk]] navržený tak, aby integroval rysy [[objektově orientované programování|objektově orientovaného]] a [[funkcionální programování|funkcionálního programování]]. Jméno Scala vzniklo z [[angličtina|anglického]] „''{{cizojazyčně|en|scalable language}}''“ – škálovatelný jazyk, protože je navržen tak, aby rostl s nároky jeho uživatelů. V [[italština|italštině]] slovo „scala“ znamená schody, což  by v tomto kontextu také mohlo mít význam.
+
+==Historie==
+
+Autorem Scaly je Martin Odersky z [[Švýcarský federální technologický institut v Lausanne|École Polytechnique Fédérale de Lausanne]] (EPFL) ve Švýcarsku, který již před tím pracoval na [[Java (programovací jazyk)|Javě]]: byl spoluautorem překladače [[javac]] a rozšíření (superset) Generic Java.
+Vývoj Scaly začal v roce 2001. První verze pro platformu [[Java (programovací jazyk)|Java]] vyšla na konci [[2003]]/začátku [[2004]], pak za půl roku v červnu [[2004]] uviděla svět první verze pro platformu [[.NET]]
+
+== Platformy a licence ==
+
+Scala byla navržena tak, aby snadno pracovala na moderních virtuálních strojích, hlavně na virtuálním stroji [[Java (programovací jazyk)|Java]] ([[Java Virtual Machine|JVM]]). Hlavní překladač scaly (scalac) generuje Java class soubory spustitelné na [[Java_Virtual_Machine|JVM]]. Z pohledu virtuálního stroje jsou class soubory vygenerované ze [[zdrojový kód|zdrojových kódů]] [[Java (programovací jazyk)|Javy]] a Scaly principiálně stejné, lze je však obvykle odlišit podle použité standardní knihovny, fingerprintingu nebo informací pro debugger.
+
+Existuje alternativní implementace Scala pro platformu [[.NET]], avšak tato alternativa se vyvíjí relativně pomalu.
+
+Scala má stejný kompilační model jako [[Java (programovací jazyk)|Java]] a [[C Sharp|C#]] (oddělená kompilace, dynamické nahrávání tříd), takže může Scala kód využívat [[Java (programovací jazyk)|Java]] knihovny (resp. [[.NET]] knihovny v alternativní implementaci).
+
+Softwarová distribuce Scala obsahuje překladač a knihovny. Je uvolňována pod [[BSD]] licencí.
+
+==Zvláštnosti syntaxe==
+Scala je navržena tak, aby byla zpětně kompatibilní s [[Java (programovací jazyk)|Javou]], ale nejde o rozšíření Javy. Scala je zcela nový programovací jazyk, který se nesnaží za každou cenu navázat na [[Java (programovací jazyk)|Javu]], [[Lisp]], [[Smalltalk]] či jiný velký vzor. Zkušený programátor nicméně určitě v syntaxi Scaly najde prvky známé z jiných programovacích jazyků. Na druhé straně však Scala  předkládá nové jazykové konstrukce, které nejsou v  předchozích jazycích obsaženy.
+Nejprve si ukážeme, jak deklarovat ve Scale [[Funkce (programování)|proměnné]] a [[Funkce (programování)|funkce]], protože bez použití těchto konstrukcí není možné uvést žádný příklad. Deklarace proměnné vypadá následovně:
+   <source lang="scala">var název_proměnné[:datový_typ][ = počáteční_hodnota]</source>
+Pokud chceme, abychom proměnnou nemohli měnit, stačí místo ''var'' použít klíčové slovo def. Jde o obdobu klíčového slova ''final'' z Javy.
+Deklarace funkce (metody) má tvar:
+   <source lang="scala">def název_funkce [(seznam_parametrů)][:typ_návratové_hodnoty] = tělo_funkce</source>
+
+Poznámka: hranaté závorky při popisu pravidel zápisu konstrukce jazyka znamenají, že jejich obsah je volitelný (je možné ho vynechat).
+
+Jednou z užitečných a důležitých vlastností Scaly je její stručnost. Scala má stručnost dynamických jazyků jako Ruby nebo Python, ale je staticky typovaná jako Java nebo [[Pascal (programovací jazyk)|Pascal]].
+Je to možné díky tomu, že Scala má velmi dobrý překladač, který se stará o celou řadu věcí. Dělá spoustu optimalizací, konverzí apod., čímž šetří programátorovi čas a umožňuje psát kratší kód.
+Například, většinou není nutné uvádět typ definované konstanty nebo proměnné. Místo
+<source lang="scala">var msg: String = "Hello, world!";</source>
+lze napsat
+<source lang="scala">var msg = "Hello, world!";</source>
+Překladač pozná hodnotu, kterou je [[proměnná]] inicializována a podle toho přidá k definici její [[datový typ]].
+Odvozování datového typu (type inference) funguje také při definování metod. Není nutné explicitně uvádět typ návratové hodnoty, překladač ho většinou zvládne určit samostatně. Na druhou stranu, odvozování typu nefunguje u parametrů metod. Každý parametr musí mít explicitně uvedený datový typ.
+
+Někdy však odvozování typu může selhat. Překladač nedokáže určit použitý typ a vyhodí chybovou hlášku.
+Neexistuje žádné přesné a jednoduché pravidlo, podle něhož by programátor mohl poznat, kdy je explicitně uvádět datový typ nutné, a kdy je vhodnější ponechat tuto práci na překladači.
+
+Scala nabízí i řadu dalších možností, jak ušetřit programátorovi práci. Například, při volání metod bez parametrů lze vynechat kulaté závorky (psát ''obj.metoda'' místo ''obj.metoda()'' atd. Podle konvence se závorky vynechávají jen tehdy, když metoda nemá vedlejší efekt.
+
+Scala také umožňuje odvodit nutnost použití lambda funkce. V následujícím kódu se při kompilaci z dostupných metod odvodí, že ''from(x+1)'' musí být lambda funkce. Díky tomu je výraz vyhodnotitelný v konečném počtu kroků, ačkoli Scala používá striktní vyhodnocování.
+<source lang="scala">def from(x: BigInt) :Stream[BigInt] = Stream.cons(x, from(x+1))</source>
+
+I pokud lambda funkce požaduje nějaké parametry, není v některých případech nutné je pojmenovávat:
+<source lang="scala">List(1, 5, 6, 8).map(_*2) // výsledkem bude List(2, 10, 12, 16)</source>
+
+To nám ale nezabraňuje psát složitější lambda funkce:
+<source lang="scala">
+import Math.pow
+List(1, 5, 6, 8).map(x => pow(x, 3) + 2*pow(x, 2) + 9*x + 20)
+                           // vyhodnotí se na List(32.0, 240.0, 362.0, 732.0)
+</source>
+
+Výše zmíněné triky dovolují psát úspornější, ale na druhou stranu méně přehledné zdrojové kódy. Stručnost sice někdy umožňuje snáze porozumět kódu, ale v případě nevhodného použití může mít čtenář s porozuměním naopak problém. Scala nenutí používat nějaký předem určený styl, ale nabízí možnost výběru.
+
+==Integrace s Javou==
+Za necelých 15 let bylo v Javě naimplementováno obrovské množství [[Třída (programování)|tříd]] pro řešení nejrůznějších úloh. Velká výhoda Scaly spočívá v tom, že existuje možnost je přímo používat bez nutnosti překládat do Scaly nebo provádět jakékoliv změny.
+Veškeré výchozí třídy z balíčku ''java.lang'' už jsou importovány. Třídy z jiných balíčku je nutno importovat explicitně.
+Ukážeme to na příkladu:
+<source lang="scala">
+import java.util.{Date, Locale}
+import java.text.DateFormat
+import java.text.DateFormat._
+
+object FrenchDate {
+    def main(args: Array[String]) {
+        val now = new Date
+        val df = getDateInstance(LONG, Locale.FRANCE)
+        println(df format now)
+    }
+}
+</source>
+Z uvedeného příkladu lze zjistit, že ve Scale je možné najednou importovat více tříd ze stejného balíčku – stačí vyjmenovat jejich seznam ve svorkách tak, jak je to uvedeno v prvním řádku.
+Druhá zajímavá věc je ta, že pokud chceme importovat všechno z balíčku (nebo třídy), je nutno použít znak „_“(podtržítko), nikoliv „*“ (hvězdičku) jako v Javě. Je to z toho důvodu, že hvězdička je v Scale platným identifikátorem, takže ji nelze používat jako speciální znak.
+Kromě přímého využití tříd importovaných z Javy, povoluje Scala definovat i jejich potomky. Také je možné implementovat [[Rozhraní_(informatika)|rozhraní]] importovaná z Javy.
+
+Nelze ale říct, že by tato spolupráce byla 100% bezproblémová. Zaprvé, Java má jinou konvenci pro pojmenování konstant než Scala (''I_AM_JAVA'' vs. ''IAmScala''). Určitým problémem může být také fakt, že ve Scale je více povolených znaků pro identifikátor. To sice nezabraňuje volání z Javy, protože tyto znaky jsou přeloženy (např. ''+'' je přeloženo jako ''$plus''), ale může to způsobovat určité nepohodlí. Uživatel Scaly by naopak mohl považovat metodu s názvem ''add'' za nezvyklou, protože se spíše nabízí pojmenování ''+'', které nedělá problémy s prioritou při využití operátorové notace.
+
+Na druhou stranu, ve Scale lze tyto problémy obvykle celkem snadno vyřešit pomocí implicitních konverzí.
+
+==Objektově orientované rysy==
+Scala je čistě objektový programovací jazyk (stejně jako Smalltalk), což znamená, že na rozdíl od Javy nezná žádné  primitivní datové typy. Všechno (včetně čísel) se tváří jako [[Objekt (programování)|objekt]]. Takže aritmetický vyraz ''1+2'' je ekvivalentní ''(1).+(2)'', což znamená, že u objektu 1 voláme metodu +, jejímž parametrem je objekt 2.
+Každá aritmetická operace je ve skutečnosti volání příslušné metody. Z toho vyplývá, že znaky +, -, <, > atd. jsou ve Scala platnými identifikátory.
+==Funkcionální rysy==
+Syntax Scaly podporuje [[currying]], [[anonymní funkce]] a [[Funkcionální_programování#Higher-order_funkce|funkce vyšších řádů]], povoluje psát vnořené funkce a má řadu dalších konstrukcí typických pro funkcionální programovací jazyky ([[Scheme]], [[Haskell (programovací jazyk)|Haskell]], [[Erlang (programovací jazyk)|Erlang]] atd.)
+Scala slučuje možnosti [[Funkcionální programování|funkcionálního]] a [[Objektově orientované programování|objektově orientovaného programovaní]]. A je to čistě objektový jazyk (objekt je cokoliv), z čehož vyplývá, že jakákoliv [[Funkce (programování)|funkce]] je též [[Objekt (programování)|objektem]]. Je možné ukládat funkci do proměnné, předávat funkce jako parametr do jiné funkce nebo vrátit jako výsledek z jiné funkce. Ukážeme to na příkladu:
+<source lang="scala">
+object Timer {
+    def onePerSecond(callback:()=>Unit) {
+        while(true) { callback(); Thread.sleep(1000) }
+    }
+    def timeFlies() {
+        println("time flies like an arrow…")
+    }
+    def main(args: Array[String]) {
+        onePerSecond(timeFlies);
+    }
+}
+</source>
+Tento příklad definuje časovač, který každou sekundu vypisuje řádek "time flies like an arrow…". V podstatě je časovač definován v druhém řádku. Je to funkce ''onePerSecond'' s formálním parametrem ''callback'', jímž může být jakákoliv funkce, která nemá žádné parametry (o čemž vypovídají prázdné kulaté závorky) a žádnou návratovou hodnotu (typ ''Unit'' je analogem typu ''void'' v Javě a C++).
+Dále, je definována jednoduchá funkce ''timeFlies'', která jenom tiskne řádek "time flies like an arrow…" na systémový výstup.
+Pak už ve hlavní metodě voláme funkci ''onePerSecond'' a předáváme ji jako faktický parametr funkce ''timeFlies''.
+Uvedený program obsahuje nekonečný cyklus, a proto bude opakovat výpis "time flies like an arrow…" dokud ho uživatel neukončí.
+
+== Externí odkazy ==
+* [http://www.scala-lang.org http://www.scala-lang.org] – Oficiální web
+* [http://www.scala-lang.org/docu/files/ScalaTutorial.pdf http://www.scala-lang.org/docu/files/ScalaTutorial.pdf] – Krátká příručka o Scale pro Java programátory
+* [http://www.artima.com/scalazine/articles/steps.html http://www.artima.com/scalazine/articles/steps.html] – Článek „First steps to Scala“ od autora Scaly Martina Oderskeho
+* [http://blogs.sun.com/sundararajan/entry/scala_for_java_programmers http://blogs.sun.com/sundararajan/entry/scala_for_java_programmers] – Porovnání Javy a Scaly
+* [http://scala.sygneca.com http://scala.sygneca.com] – Wiki o jazyce Scala
+* [http://www.scala-lang.org/docu/files/ScalaReference.pdf http://www.scala-lang.org/docu/files/ScalaReference.pdf] – Specifikace jazyka Scala
+* [http://www.scala-lang.org/docu/files/api/index.html http://www.scala-lang.org/docu/files/api/index.html] – Scala API
+
+{{Programovací jazyky}}
+
+[[Kategorie:Programovací jazyky]]
+[[Kategorie:JVM programovací jazyky]]
