@@ -3,6 +3,8 @@ package eu.bastecky.examples.scala.wiki_word_count.services
 import java.util.Properties
 import java.io.InputStream
 
+import org.slf4j.LoggerFactory
+
 object Configuration {
     val TextSourceProperty = "text.source"
 
@@ -72,6 +74,8 @@ trait Configuration {
   */
 class PropertyConfiguration extends Configuration {
 
+    val logger = LoggerFactory.getLogger(classOf[PropertyConfiguration])
+
     /** Name of file with default properties */
     val ConfigFileName = "config.properties"
 
@@ -86,10 +90,13 @@ class PropertyConfiguration extends Configuration {
     /**
       * Gets string value for given key. Returns None if property is not set.
       */
-    override def getOptionalValue(key: String): Option[String] =
+    override def getOptionalValue(key: String): Option[String] = {
+        logger trace s"Resolving value of property: $key"
+
         if (System.getProperties.keySet().contains(key)) Some(System.getProperty(key))
         else if (properties.keySet().contains(key)) Some(properties.getProperty(key))
         else None
+    }
 
     /**
       * Loads given file into collection of properties.
@@ -97,11 +104,20 @@ class PropertyConfiguration extends Configuration {
       * @param fileName Path to file in classpath
       */
     def loadFile(fileName: String) = {
+
+        logger debug s"Loading file with configuration properties: $fileName"
+
         var input: Option[InputStream] = None
 
         try {
             input = Option(getClass.getClassLoader.getResourceAsStream(fileName))
-            if (input.isDefined) properties.load(input.get)
+            if (input.isDefined) {
+                properties.load(input.get)
+                logger debug s"Properties has been loaded"
+            }
+            else {
+                logger warn "Unable to load file with properties"
+            }
         }
         finally {
             if (input.isDefined) input.get.close()

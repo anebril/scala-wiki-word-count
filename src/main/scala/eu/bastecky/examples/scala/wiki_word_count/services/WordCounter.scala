@@ -1,6 +1,6 @@
 package eu.bastecky.examples.scala.wiki_word_count.services
 
-import eu.bastecky.examples.scala.wiki_word_count.beans.{TextEntry, Word}
+import eu.bastecky.examples.scala.wiki_word_count.beans.Word
 
 /**
   * Defines method for processing loaded texts into collection of words and number of its occurrences.

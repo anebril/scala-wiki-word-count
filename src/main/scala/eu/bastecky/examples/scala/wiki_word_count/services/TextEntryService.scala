@@ -1,6 +1,7 @@
 package eu.bastecky.examples.scala.wiki_word_count.services
 
 import eu.bastecky.examples.scala.wiki_word_count.beans.{TextEntry, WordCountException}
+import org.slf4j.LoggerFactory
 
 /**
   * This class contains utility methods to work with text entries.
@@ -13,6 +14,8 @@ class TextEntryService()(
                         wordCounter: WordCounter
                       ) {
 
+    val logger = LoggerFactory.getLogger(classOf[TextEntryService])
+
     val textSource = config.getValue(Configuration.TextSourceProperty)
 
     /**
@@ -24,19 +27,30 @@ class TextEntryService()(
       */
     def getEntry(query: String): TextEntry = {
 
+        logger info s"Resolving text, textSource=$textSource, query=$query"
+
         // First check if there is some cached entry for given query
+        logger trace "Loading text from cache"
         val cached = persistence.getTextEntry(textSource, query)
 
         if (cached.isEmpty) {
+            logger debug "There is no cached text entry - loading from text source"
+
             // There is no persisted query - load text using text loader and count words
+            logger trace "Loading from text words"
             val text = textLoader.load(query)
+
+            logger trace "Analyzing word counts"
             val words = wordCounter.countWords(text)
+            logger info s"Identified ${words.size} words in analyzed text"
 
             // Cache text entry and return it
+            logger trace "Caching results"
             cacheTextEntry(TextEntry(textSource, query, text, words))
         }
         else {
             // Return cached value
+            logger info "Returning cached text entry"
             cached.get
         }
     }
@@ -48,10 +62,12 @@ class TextEntryService()(
       */
     def cacheTextEntry(textEntry: TextEntry) = {
         try {
+            logger debug s"Caching loaded text entry: textSource=$textSource, query=${textEntry.query}"
             persistence.storeTextEntry(textEntry)
         }
         catch {
-            case e: WordCountException => println("Cannot cache (todo logger): " + e.getMessage)
+            case e: WordCountException =>
+                logger error s"Result cannot be cached: ${e.getMessage}"
         }
 
         textEntry
