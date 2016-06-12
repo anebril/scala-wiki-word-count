@@ -20,23 +20,25 @@ class TextEntryServiceTest extends FlatSpec {
         Seq(Word("this", 1), Word("is", 1), Word("from", 1), Word("textloader", 1)))
 
     object TestPersistence$NoEntry extends Persistence {
+        var cached: Option[TextEntry] = None
         override def getTextEntry(textSource: String, query: String): Option[TextEntry] = None
-        override def storeTextEntry(entry: TextEntry): Unit = ???
+        override def storeTextEntry(entry: TextEntry): Unit = cached = Some(entry)
     }
 
     object TestPersistence$PersistedEntry extends Persistence {
+        var cached: Option[TextEntry] = None
         override def getTextEntry(textSource: String, query: String): Option[TextEntry] = Some(persistedTextEntry)
-        override def storeTextEntry(entry: TextEntry): Unit = ???
+        override def storeTextEntry(entry: TextEntry): Unit = cached = Some(entry)
     }
 
     object TestPersistence$Caching extends Persistence {
         var cached: Option[TextEntry] = None
-        override def getTextEntry(textSource: String, query: String): Option[TextEntry] = ???
+        override def getTextEntry(textSource: String, query: String): Option[TextEntry] = None
         override def storeTextEntry(entry: TextEntry): Unit = cached = Some(entry)
     }
 
     object TestPersistence$FailCaching extends Persistence {
-        override def getTextEntry(textSource: String, query: String): Option[TextEntry] = ???
+        override def getTextEntry(textSource: String, query: String): Option[TextEntry] = None
         override def storeTextEntry(entry: TextEntry): Unit = throw new WordCountException("Test")
     }
 
@@ -54,6 +56,8 @@ class TextEntryServiceTest extends FlatSpec {
         val entry = service.getEntry("query")
         assert(entry != null)
         assert(entry == persistedTextEntry)
+
+        assert(TestPersistence$PersistedEntry.cached.isEmpty)
     }
 
     it should "get text entry from loader" in {
@@ -62,6 +66,9 @@ class TextEntryServiceTest extends FlatSpec {
         val entry = service.getEntry("query")
         assert(entry != null)
         assert(entry == loadedTextEntry)
+
+        assert(TestPersistence$NoEntry.cached.isDefined)
+        assert(TestPersistence$NoEntry.cached.get == loadedTextEntry)
     }
 
     it should "cache text entry" in {
@@ -91,7 +98,6 @@ class TextEntryServiceTest extends FlatSpec {
         val service = new TextEntryService()(config, TestPersistence$PersistedEntry, TestTextLoader, TestWordCounter)
 
         val report = service.createTextEntryReport(TextEntry("test-source", "empty query", "", Seq.empty[Word]))
-        println(report)
         assert(report.nonEmpty)
     }
 }

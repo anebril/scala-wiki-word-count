@@ -1,48 +1,40 @@
 package eu.bastecky.examples.scala.wiki_word_count
 
-import eu.bastecky.examples.scala.wiki_word_count.beans.TextEntry
+import eu.bastecky.examples.scala.wiki_word_count.beans.WordCountException
 import eu.bastecky.examples.scala.wiki_word_count.services._
 
 /**
-  * Created by pavel on 6/8/16.
+  * Main class of wiki word count applications. This program loads article from wikipedia and print out counted words.
   */
-object WikiWordCount {
+object WikiWordCount extends App {
 
+    // Prepare instances of used services (uses implicit mechanism to perform dependency injection)
     implicit lazy val config = new PropertyConfiguration
     implicit lazy val persistence: Persistence = new DerbyPersistence
     implicit lazy val textLoader: TextLoader = new WikiTextLoader
     implicit lazy val wordCounter: WordCounter = new WikiWordCounter
+    implicit lazy val textEntryService = new TextEntryService()
 
-    implicit lazy val wikiWordCount = new WikiWordCount
-
-}
-
-class WikiWordCount(
-                   implicit
-                   config: Configuration,
-                   persistence: Persistence,
-                   textLoader: TextLoader,
-                   wordCounter: WordCounter
-                   ) {
-
-
-    def getEntry(query: String): TextEntry = {
-
-        val persisted = persistence.getTextEntry("", query)
-
-        if (persisted.isEmpty) {
-            val text = textLoader.load(query)
-            val words = wordCounter.countWords(text)
-
-            val textEntry = TextEntry("", query, text, words)
-
-            persistence.storeTextEntry(textEntry)
-            textEntry
-        }
-        else {
-            persisted.get
-        }
+    if (args.isEmpty) {
+        // Write usage to standard output if there is no argument
+        println("Usage: java -jar wiki-word-count.jar \"search query\"")
+        System.exit(-1)
     }
+    else try {
+        // Use first argument as query
+        val query = args(0)
 
+        // Obtain text entry matching specified query
+        val textEntry = textEntryService.getEntry(query)
 
+        // Create report and print it to standard output
+        val report = textEntryService.createTextEntryReport(textEntry)
+        println(report)
+    }
+    catch {
+        // An error occurred report it to user
+        case e: WordCountException => println(s"Cannot perform requested operation. ${e.getMessage}")
+        case e: Throwable => println(s"Cannot perform requested due to unhandled internal error. " +
+          s"Error type: ${e.getClass.getName}, Error: ${e.getMessage}")
+    }
 }

@@ -32,7 +32,8 @@ class TextEntryService()(
             val text = textLoader.load(query)
             val words = wordCounter.countWords(text)
 
-            TextEntry(textSource, query, text, words)
+            // Cache text entry and return it
+            cacheTextEntry(TextEntry(textSource, query, text, words))
         }
         else {
             // Return cached value
@@ -52,6 +53,8 @@ class TextEntryService()(
         catch {
             case e: WordCountException => println("Cannot cache (todo logger): " + e.getMessage)
         }
+
+        textEntry
     }
 
     /**
