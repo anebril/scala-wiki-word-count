@@ -11,6 +11,8 @@ class WikiTextLoaderTest extends FlatSpec {
     behavior of "WikiTextLoaderTest"
 
     val config = new PropertyConfiguration
+    config.setValue(Configuration.TextSourceProperty, "cs.wikipedia.org")
+
     val loader = new WikiTextLoader()(config)
 
     val TestQuery = "Scala (programovací jazyk)"
@@ -23,7 +25,7 @@ class WikiTextLoaderTest extends FlatSpec {
 
     it should "load text from wiki using configuration" in {
 
-        val text = loader.performRequest(TestQuery, loader.wikiEndpoint, loader.wikiQueryParam)
+        val text = loader.performRequest(TestQuery, loader.textSource)
         assert(text != null)
         assert(text.nonEmpty)
     }
@@ -31,11 +33,11 @@ class WikiTextLoaderTest extends FlatSpec {
     it should "fail loading text from wrong uri" in {
 
         intercept[WordCountException] {
-            val text = loader.performRequest(TestQuery, "http://dontexists.dontexists", loader.wikiQueryParam)
+            val text = loader.performRequest(TestQuery, "dontexists.dontexists")
         }
 
         intercept[WordCountException] {
-            val text = loader.performRequest(TestQuery, "wrong", loader.wikiQueryParam)
+            val text = loader.performRequest(TestQuery, "wrong")
         }
     }
 

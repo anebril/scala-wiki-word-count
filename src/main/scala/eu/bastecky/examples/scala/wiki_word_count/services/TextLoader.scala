@@ -32,6 +32,9 @@ trait TextLoader {
   */
 class WikiTextLoader()(implicit val config: Configuration) extends TextLoader {
 
+    // Identification of text source - will be used as host in request
+    val textSource = config.getValue(Configuration.TextSourceProperty)
+    val wikiProtocol = config.getValue(Configuration.WikiProtocolProperty)
     val wikiEndpoint = config.getValue(Configuration.WikiEndpointProperty)
     val wikiQueryParam = config.getValue(Configuration.WikiQueryParamProperty)
 
@@ -39,7 +42,7 @@ class WikiTextLoader()(implicit val config: Configuration) extends TextLoader {
     object MapExtractor extends Extractor[Map[String, Any]]
 
     override def load(query: String): String = {
-        val content = performRequest(query, wikiEndpoint, wikiQueryParam)
+        val content = performRequest(query, textSource)
         extractText(content)
     }
 
@@ -48,13 +51,14 @@ class WikiTextLoader()(implicit val config: Configuration) extends TextLoader {
       * in configuration - WikiEndpointProperty and WikiQueryParamProperty.
       *
       * @param query Search query to be resolved as requested text
+      * @param host Host of wikipedia api - alows to select different language versions
       * @return Received text response to sent request
       */
-    def performRequest(query: String, wikiEndpoint: String, wikiQueryParam: String): String = {
+    def performRequest(query: String, host: String): String = {
 
         // Prepare uri with encoded search query
         val encodedQuery = URLEncoder.encode(query, "UTF-8")
-        val uri = s"$wikiEndpoint&$wikiQueryParam=$encodedQuery"
+        val uri = s"$wikiProtocol://$host$wikiEndpoint&$wikiQueryParam=$encodedQuery"
 
         try {
             // Load content from remote server

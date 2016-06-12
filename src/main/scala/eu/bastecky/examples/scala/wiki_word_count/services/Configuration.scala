@@ -4,9 +4,12 @@ import java.util.Properties
 import java.io.InputStream
 
 object Configuration {
+    val TextSourceProperty = "text.source"
+
     /** URI of wikipedia api endpoint for loading texts */
     val WikiEndpointProperty = "wiki.endpoint"
-    val WikiQueryParamProperty= "wiki.query.param"
+    val WikiQueryParamProperty = "wiki.query.param"
+    val WikiProtocolProperty = "wiki.protocol"
     val DerbyDatabaseNameProperty = "derby.database.name"
     val DerbyDatabaseIsMemoryProperty = "derby.database.isMemory"
 
