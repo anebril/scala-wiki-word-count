@@ -82,4 +82,12 @@ class WikiTextLoaderTest extends FlatSpec {
             loader.extractText("{ \"error\": { \"info\": \"Error message\" } }")
         }
     }
+
+    it should "extract JSON from empty response" in {
+        val response = scala.io.Source.fromFile("src/test/test-resources/example-empty-response.json").mkString
+
+        val extracted = loader.extractText(response)
+        assert(extracted != null)
+        assert(extracted.isEmpty)
+    }
 }

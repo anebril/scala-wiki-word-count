@@ -98,7 +98,7 @@ class TextEntryService()(
         sb.append(s"\n")
         sb.append(s"-- Returned text: ----------------------------------------\n")
         sb.append(textEntry.text)
-        sb.append(s"\n")
+        if (textEntry.text.nonEmpty) sb.append(s"\n")
         sb.append(s"----------------------------------------------------------\n")
         sb.append(s"\n")
         sb.append(s"-- Words: ------------------------------------------------\n")

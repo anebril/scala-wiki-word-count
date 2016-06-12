@@ -109,12 +109,17 @@ class WikiTextLoader()(implicit val config: Configuration) extends TextLoader {
                         val texts = pagesMap.map((elem: (String, Any)) => {
                             logger trace "Resolving head revision for returned text"
                             val pageMap = elem._2.asInstanceOf[Map[String, Any]]
-                            val revisionList = getValue(pageMap, "revisions").asInstanceOf[List[Any]]
-                            val headRevision = revisionList.head.asInstanceOf[Map[String, Any]]
-                            val text = getValue(headRevision, "*").asInstanceOf[String]
-                            logger trace "Text has been resolved"
-
-                            text
+                            if (!pageMap.contains("missing")) {
+                                val revisionList = getValue(pageMap, "revisions").asInstanceOf[List[Any]]
+                                val headRevision = revisionList.head.asInstanceOf[Map[String, Any]]
+                                val text = getValue(headRevision, "*").asInstanceOf[String]
+                                logger trace "Text has been resolved"
+                                text
+                            }
+                            else {
+                                logger debug "Received empty response"
+                                ""
+                            }
                         })
 
                         // Concat text of all pages together

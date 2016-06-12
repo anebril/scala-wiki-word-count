@@ -31,7 +31,7 @@ object WikiWordCount extends App {
     }
     else try {
         // Use first argument as query
-        val query = args(0)
+        val query = args(0).toLowerCase
         logger debug s"Resolving text entry matching specified query: $query"
 
         // Obtain text entry matching specified query
