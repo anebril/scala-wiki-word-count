@@ -32,8 +32,8 @@ trait TextLoader {
   */
 class WikiTextLoader()(implicit val config: Configuration) extends TextLoader {
 
-    val wikiEndpoint = config.getValue(config.WikiEndpointProperty)
-    val wikiQueryParam = config.getValue(config.WikiQueryParamProperty)
+    val wikiEndpoint = config.getValue(Configuration.WikiEndpointProperty)
+    val wikiQueryParam = config.getValue(Configuration.WikiQueryParamProperty)
 
     class Extractor[T] { def unapply(a:Any):Option[T] = Some(a.asInstanceOf[T]) }
     object MapExtractor extends Extractor[Map[String, Any]]

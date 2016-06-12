@@ -3,6 +3,57 @@ package eu.bastecky.examples.scala.wiki_word_count.services
 import java.util.Properties
 import java.io.InputStream
 
+object Configuration {
+    /** URI of wikipedia api endpoint for loading texts */
+    val WikiEndpointProperty = "wiki.endpoint"
+    val WikiQueryParamProperty= "wiki.query.param"
+    val DerbyDatabaseNameProperty = "derby.database.name"
+    val DerbyDatabaseIsMemoryProperty = "derby.database.isMemory"
+
+    /** Set of values which are resolved to FALSE - any other value is resolved to true **/
+    val FalseValues = Set("false", "0", "")
+}
+
+/**
+  * Represents collection of configuration properties for this application. Configuration is represented as set of
+  * key/value properties. Each property is some string value for some string key.
+  */
+trait Configuration {
+
+    import Configuration._
+
+    /**
+      * Sets given value to a property with given key.
+      */
+    def setValue(key: String, value: String)
+
+    /**
+      * Gets string value for given key. Returns None if property is not set.
+      */
+    def getOptionalValue(key: String): Option[String]
+
+    /**
+      * Gets string value for given key. Throws IllegalStateException if property is not set.
+      */
+    def getValue(key: String): String = {
+        val value = getOptionalValue(key)
+
+        if (value.isDefined) value.get
+        else throw new IllegalStateException(s"Missing required property: $key in application config property file")
+    }
+
+    /**
+      * Gets boolean value for given key. Returns False is property is not set or is set to "false", "0", "". Otherwise
+      * returns true.
+      */
+    def getBoolValue(key: String): Boolean = {
+        val value = getOptionalValue(key)
+
+        if (value.isDefined) !FalseValues.contains(value.get.toLowerCase)
+        else false
+    }
+}
+
 /**
   * Represents collection of configuration properties for this application. Configuration is represented as set of
   * key/value properties. Each property is some string value for some string key.
@@ -16,11 +67,7 @@ import java.io.InputStream
   * Option to set configuration property:
   *         -Dproperty.name=property-value
   */
-class Configuration {
-
-    /** URI of wikipedia api endpoint for loading texts */
-    val WikiEndpointProperty = "wiki.endpoint"
-    val WikiQueryParamProperty="wiki.query.param"
+class PropertyConfiguration extends Configuration {
 
     /** Name of file with default properties */
     val ConfigFileName = "config.properties"
@@ -29,23 +76,21 @@ class Configuration {
     loadFile(ConfigFileName)
 
     /**
-      * Gets string value for given key. Throws IllegalStateException if property is not set.
+      * Sets given value to a property with given key.
       */
-    def getValue(key: String): String = {
+    override def setValue(key: String, value: String): Unit = properties.setProperty _
 
-        if (System.getProperties.keySet().contains(key)) {
-            System.getProperty(key)
-        }
-        else if (properties.keySet().contains(key)) {
-            properties.getProperty(key)
-        }
-        else {
-            throw new IllegalStateException(s"Missing required property: $key in application config property file")
-        }
-    }
+    /**
+      * Gets string value for given key. Returns None if property is not set.
+      */
+    override def getOptionalValue(key: String): Option[String] =
+        if (System.getProperties.keySet().contains(key)) Some(System.getProperty(key))
+        else if (properties.keySet().contains(key)) Some(properties.getProperty(key))
+        else None
 
     /**
       * Loads given file into collection of properties.
+      *
       * @param fileName Path to file in classpath
       */
     def loadFile(fileName: String) = {
@@ -53,14 +98,11 @@ class Configuration {
 
         try {
             input = Option(getClass.getClassLoader.getResourceAsStream(fileName))
-            if (input.isDefined) {
-                properties.load(input.get)
-            }
+            if (input.isDefined) properties.load(input.get)
         }
         finally {
-            if (input.isDefined) {
-                input.get.close()
-            }
+            if (input.isDefined) input.get.close()
         }
     }
+
 }

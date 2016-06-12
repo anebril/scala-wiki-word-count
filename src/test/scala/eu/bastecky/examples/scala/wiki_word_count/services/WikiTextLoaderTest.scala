@@ -10,7 +10,7 @@ class WikiTextLoaderTest extends FlatSpec {
 
     behavior of "WikiTextLoaderTest"
 
-    val config = new Configuration
+    val config = new PropertyConfiguration
     val loader = new WikiTextLoader()(config)
 
     val TestQuery = "Scala (programovací jazyk)"
