@@ -20,7 +20,7 @@ trait TextLoader {
       * Method can throw an exception if text source couldn't be connected.
       *
       * @param query Search query to be resolved as requested text
-      * @return REquested text matching search query
+      * @return Requested text matching search query
       */
     def load(query: String): String
 }
@@ -54,7 +54,7 @@ class WikiTextLoader()(implicit val config: Configuration) extends TextLoader {
       * in configuration - WikiEndpointProperty and WikiQueryParamProperty.
       *
       * @param query Search query to be resolved as requested text
-      * @param host Host of wikipedia api - alows to select different language versions
+      * @param host Host of wikipedia api - allows to select different language versions
       * @return Received text response to sent request
       */
     def performRequest(query: String, host: String): String = {
@@ -133,7 +133,7 @@ class WikiTextLoader()(implicit val config: Configuration) extends TextLoader {
                     }
                     else {
                         // Received error response from api (wrong request) - report it to user
-                        logger debug "Resolved error response from text surce"
+                        logger debug "Resolved error response from text source"
                         val MapExtractor(errorMap) = getValue(map, "error")
                         val msg = getValue(errorMap, "info").asInstanceOf[String]
                         throw new WordCountException(s"Error loading text from wiki page - Received error response: $msg")
@@ -141,7 +141,7 @@ class WikiTextLoader()(implicit val config: Configuration) extends TextLoader {
                 }
                 catch {
                     case e: ClassCastException =>
-                        throw new WordCountException("Error loading text from wiki page - Invalid structure of recieved JSON response")
+                        throw new WordCountException("Error loading text from wiki page - Invalid structure of received JSON response")
                 }
 
             // Given string is not JSON - throw exception with error

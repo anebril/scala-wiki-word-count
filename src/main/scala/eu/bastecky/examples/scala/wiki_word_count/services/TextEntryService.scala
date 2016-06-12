@@ -80,7 +80,7 @@ class TextEntryService()(
       * Report is formatted to be printed to user.
       *
       * @param textEntry Text entry to be processed
-      * @return Formated report
+      * @return Formatted report
       */
     def createTextEntryReport(textEntry: TextEntry): String = {
 
