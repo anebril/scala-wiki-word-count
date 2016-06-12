@@ -15,25 +15,16 @@ object WikiWordCount {
 
     implicit lazy val wikiWordCount = new WikiWordCount
 
-    def main(args: Array[String]) = wikiWordCount.main _
 }
 
-/**
-  *
-  * @param persistence
-  * @param textLoader
-  * @param wordCounter
-  */
 class WikiWordCount(
                    implicit
+                   config: Configuration,
                    persistence: Persistence,
                    textLoader: TextLoader,
                    wordCounter: WordCounter
                    ) {
 
-    def main(args: Array[String]) {
-
-    }
 
     def getEntry(query: String): TextEntry = {
 
@@ -52,4 +43,6 @@ class WikiWordCount(
             persisted.get
         }
     }
+
+
 }

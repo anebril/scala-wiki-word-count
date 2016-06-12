@@ -1,6 +1,6 @@
 package eu.bastecky.examples.scala.wiki_word_count.services
 
-import eu.bastecky.examples.scala.wiki_word_count.beans.Word
+import eu.bastecky.examples.scala.wiki_word_count.beans.{TextEntry, Word}
 
 /**
   * Defines method for processing loaded texts into collection of words and number of its occurrences.
@@ -32,5 +32,4 @@ class WikiWordCounter extends WordCounter {
           .map(w => Word(w._1, w._2.size))      // For each word group creates Word object with word and size of group
           .toSeq
           .sortWith(_.count > _.count)          // Sort by number of occurrences (most common words at top)
-
 }
